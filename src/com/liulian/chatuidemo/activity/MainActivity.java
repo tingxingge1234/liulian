@@ -327,11 +327,11 @@ public class MainActivity extends BaseActivity implements EMEventListener {
 	 */
 	private void initView() {
 		unreadLabel = (TextView) findViewById(R.id.unread_msg_number);
-		unreadAddressLable = (TextView) findViewById(R.id.unread_address_number);
+//		unreadAddressLable = (TextView) findViewById(R.id.unread_address_number);
 		mTabs = new Button[3];
-		mTabs[0] = (Button) findViewById(R.id.btn_conversation);
-		mTabs[1] = (Button) findViewById(R.id.btn_address_list);
-		mTabs[2] = (Button) findViewById(R.id.btn_setting);
+//		mTabs[0] = (Button) findViewById(R.id.btn_conversation);
+//		mTabs[1] = (Button) findViewById(R.id.btn_address_list);
+//		mTabs[2] = (Button) findViewById(R.id.btn_setting);
 		// 把第一个tab设为选中状态
 		mTabs[0].setSelected(true);
 
@@ -344,17 +344,17 @@ public class MainActivity extends BaseActivity implements EMEventListener {
 	 * @param view
 	 */
 	public void onTabClicked(View view) {
-		switch (view.getId()) {
-		case R.id.btn_conversation:
-			index = 0;
-			break;
-		case R.id.btn_address_list:
-			index = 1;
-			break;
-		case R.id.btn_setting:
-			index = 2;
-			break;
-		}
+//		switch (view.getId()) {
+//		case R.id.btn_conversation:
+//			index = 0;
+//			break;
+//		case R.id.btn_address_list:
+//			index = 1;
+//			break;
+//		case R.id.btn_setting:
+//			index = 2;
+//			break;
+//		}
 		if (currentTabIndex != index) {
 			FragmentTransaction trx = getSupportFragmentManager().beginTransaction();
 			trx.hide(fragments[currentTabIndex]);
