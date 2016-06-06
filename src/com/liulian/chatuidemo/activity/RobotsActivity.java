@@ -37,11 +37,11 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.easemob.EMValueCallBack;
+import com.liulian.chatuidemo.R;
 import com.liulian.chatuidemo.applib.controller.HXSDKHelper;
 import com.easemob.chat.EMChatManager;
 import com.easemob.chat.EMContact;
 import com.liulian.chatuidemo.DemoHXSDKHelper;
-import com.easemob.chatuidemo.R;
 import com.liulian.chatuidemo.db.UserDao;
 import com.liulian.chatuidemo.domain.RobotUser;
 import com.easemob.exceptions.EaseMobException;

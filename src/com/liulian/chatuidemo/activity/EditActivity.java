@@ -1,12 +1,13 @@
 package com.liulian.chatuidemo.activity;
 
-import com.easemob.chatuidemo.R;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import com.liulian.chatuidemo.R;
 
 public class EditActivity extends BaseActivity{
 	private EditText editText;

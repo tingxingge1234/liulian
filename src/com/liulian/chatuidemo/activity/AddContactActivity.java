@@ -27,11 +27,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.liulian.chatuidemo.R;
 import com.liulian.chatuidemo.applib.controller.HXSDKHelper;
 import com.easemob.chat.EMContactManager;
 import com.liulian.chatuidemo.DemoApplication;
 import com.liulian.chatuidemo.DemoHXSDKHelper;
-import com.easemob.chatuidemo.R;
 
 public class AddContactActivity extends BaseActivity{
 	private EditText editText;

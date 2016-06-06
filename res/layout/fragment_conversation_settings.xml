@@ -10,6 +10,11 @@
         android:layout_height="@dimen/height_top_bar"
         android:background="@color/top_bar_normal_bg"
         android:gravity="center_vertical" >
+        <ImageView
+            android:id="@+id/iv_set_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/land_back"/>
 
         <TextView
             android:id="@+id/message_title"
@@ -19,6 +24,29 @@
             android:text="@string/set"
             android:textColor="#fff"
             android:textSize="18sp" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/set_personal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <com.android.volley.toolbox.NetworkImageView
+            android:id="@+id/iv_avatar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
+        <TextView
+            android:id="@+id/tv_userNick"
+            android:layout_toRightOf="@id/iv_avatar"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/set_button_go"
+            android:layout_alignParentRight="true"
+            />
     </RelativeLayout>
 
     <ScrollView
@@ -39,14 +67,6 @@
                 android:layout_marginTop="10dip"
                 android:orientation="vertical" >
                 
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="30dip"
-                    android:gravity="bottom|left"
-                    android:paddingLeft="10dip"
-                    android:text="@string/notify"
-                    android:textColor="@color/btn_gray_pressed" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -94,17 +114,8 @@
                         android:background="@drawable/close_icon"
                         android:visibility="invisible" />
                 </RelativeLayout>
-
-                <TextView
-                    android:id="@+id/textview1"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dip"
-                    android:layout_marginLeft="10dip"
-                    android:layout_marginRight="10dip"
-                    android:background="#E6E6E6" />
-
                 <RelativeLayout
-                    android:id="@+id/rl_switch_sound"
+                    android:id="@+id/rl_ring_dialog"
                     android:layout_width="match_parent"
                     android:layout_height="50dip"
                     android:background="@drawable/btn_bottom_selector"
@@ -115,13 +126,13 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:paddingLeft="10dip"
-                        android:text="@string/voice"
+                        android:text="通知铃声"
                         android:textColor="@android:color/black"
                         android:textSize="14sp"
                         android:typeface="serif" />
 
                     <ImageView
-                        android:id="@+id/iv_switch_open_sound"
+                        android:id="@+id/iv_switch_open_ring"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
@@ -130,7 +141,7 @@
                         android:visibility="visible" />
 
                     <ImageView
-                        android:id="@+id/iv_switch_close_sound"
+                        android:id="@+id/iv_switch_close_ring"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
@@ -138,15 +149,13 @@
                         android:background="@drawable/close_icon"
                         android:visibility="invisible" />
                 </RelativeLayout>
-
                 <TextView
-                    android:id="@+id/textview2"
+                    android:id="@+id/textview1"
                     android:layout_width="match_parent"
                     android:layout_height="1dip"
                     android:layout_marginLeft="10dip"
                     android:layout_marginRight="10dip"
                     android:background="#E6E6E6" />
-
                 <RelativeLayout
                     android:id="@+id/rl_switch_vibrate"
                     android:layout_width="match_parent"
@@ -183,6 +192,52 @@
                         android:visibility="invisible" />
                 </RelativeLayout>
 
+                <RelativeLayout
+                    android:id="@+id/rl_switch_sound"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dip"
+                    android:background="@drawable/btn_bottom_selector"
+                    android:padding="10dip" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:paddingLeft="10dip"
+                        android:text="音效"
+                        android:textColor="@android:color/black"
+                        android:textSize="14sp"
+                        android:typeface="serif" />
+
+                    <ImageView
+                        android:id="@+id/iv_switch_open_sound"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:background="@drawable/open_icon"
+                        android:visibility="visible" />
+
+                    <ImageView
+                        android:id="@+id/iv_switch_close_sound"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:background="@drawable/close_icon"
+                        android:visibility="invisible" />
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/textview2"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dip"
+                    android:layout_marginLeft="10dip"
+                    android:layout_marginRight="10dip"
+                    android:background="#E6E6E6" />
+
+
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -191,19 +246,34 @@
                     android:layout_marginTop="10dip"
                     android:orientation="vertical" >
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="30dip"
-                        android:gravity="bottom|left"
-                        android:paddingLeft="10dip"
-                        android:text="@string/chatset"
-                        android:textColor="@color/btn_gray_pressed" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="1dip"
                         android:background="@color/btn_gray_normal" />
                 </LinearLayout>
+                <RelativeLayout
+                    android:id="@+id/ll_black_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dip"
+                    android:background="@drawable/btn_bottom_selector"
+                    android:padding="10dip" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:paddingLeft="10dip"
+                        android:text="黑名单"
+                        android:textColor="@android:color/black"
+                        android:textSize="14sp" />
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/set_button_go"
+                        android:layout_alignParentRight="true"
+                        />
+                </RelativeLayout>
 
                 <RelativeLayout
                     android:id="@+id/rl_switch_speaker"
@@ -217,10 +287,16 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:paddingLeft="10dip"
-                        android:text="@string/yangshengqi"
+                        android:text="空间缓存"
                         android:textColor="@android:color/black"
                         android:textSize="14sp"
                         android:typeface="serif" />
+                    <TextView
+                        android:id="@+id/tvhuancun"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        />
 
                     <ImageView
                         android:id="@+id/iv_switch_open_speaker"
@@ -228,17 +304,9 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
-                        android:background="@drawable/open_icon"
+                        android:background="@drawable/set_button_go"
                         android:visibility="visible" />
 
-                    <ImageView
-                        android:id="@+id/iv_switch_close_speaker"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:background="@drawable/close_icon"
-                        android:visibility="invisible" />
                 </RelativeLayout>
 
                 <View
@@ -248,102 +316,10 @@
                     android:layout_marginRight="10dp"
                     android:background="@color/btn_gray_normal" />
 
-                <LinearLayout
-                    android:id="@+id/ll_black_list"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dip"
-                    android:background="@drawable/btn_bottom_selector"
-                    android:padding="10dip" >
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:paddingLeft="10dip"
-                        android:text="@string/book_black"
-                        android:textColor="@android:color/black"
-                        android:textSize="14sp" />
-                </LinearLayout>
-                
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dip"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:background="@color/btn_gray_normal" />
-                <LinearLayout
-                     android:id="@+id/ll_user_profile"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dip"
-                    android:background="@drawable/btn_bottom_selector"
-                    android:padding="10dip" >
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:paddingLeft="10dip"
-                        android:text="@string/title_user_profile"
-                        android:textColor="@android:color/black"
-                        android:textSize="14sp" />
-                </LinearLayout>
-                
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dip"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:background="@color/btn_gray_normal" />
-                 <LinearLayout
-                     android:id="@+id/ll_diagnose"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dip"
-                    android:background="@drawable/btn_bottom_selector"
-                    android:padding="10dip" >
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:paddingLeft="10dip"
-                        android:text="@string/diagnose"
-                        android:textColor="@android:color/black"
-                        android:textSize="14sp" />
-                </LinearLayout>
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dip"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:background="@color/btn_gray_normal" />
-                 <LinearLayout
-                     android:id="@+id/ll_set_push_nick"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dip"
-                    android:background="@drawable/btn_bottom_selector"
-                    android:padding="10dip" >
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:paddingLeft="10dip"
-                        android:text="@string/push_nick"
-                        android:textColor="@android:color/black"
-                        android:textSize="14sp" />
-                </LinearLayout>
-            </LinearLayout>
-
-            <TextView
-                    android:id="@+id/textview4"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dip"
-                    android:layout_marginLeft="10dip"
-                    android:layout_marginRight="10dip"
-                    android:background="#E6E6E6" />
 
                 <RelativeLayout
-                    android:id="@+id/rl_switch_chatroom_owner_leave"
+                    android:id="@+id/rl_switch_userxieyi"
                     android:layout_width="match_parent"
                     android:layout_height="50dip"
                     android:background="@drawable/btn_bottom_selector"
@@ -354,58 +330,135 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:paddingLeft="10dip"
-                        android:text="@string/chatroom_allow_owner_leave"
+                        android:text="用户协议"
                         android:textColor="@android:color/black"
                         android:textSize="14sp"
                         android:typeface="serif" />
+                    <TextView
+                        android:id="@+id/tvuserxieyi"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        />
 
                     <ImageView
-                        android:id="@+id/iv_switch_chatroom_owner_leave_allow"
+                        android:id="@+id/iv_switch_open_userxieyi"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
-                        android:background="@drawable/open_icon"
+                        android:background="@drawable/set_button_go"
                         android:visibility="visible" />
 
+                </RelativeLayout>
+                <RelativeLayout
+                    android:id="@+id/rl_switch_saveAlert"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dip"
+                    android:background="@drawable/btn_bottom_selector"
+                    android:padding="10dip" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:paddingLeft="10dip"
+                        android:text="交友安全提示"
+                        android:textColor="@android:color/black"
+                        android:textSize="14sp"
+                        android:typeface="serif" />
+                    <TextView
+                        android:id="@+id/tvsavaAlert"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        />
+
                     <ImageView
-                        android:id="@+id/iv_switch_chatroom_owner_leave_not_allow"
+                        android:id="@+id/iv_switch_open_saveAlert"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
-                        android:background="@drawable/close_icon"
-                        android:visibility="invisible" />
-                </RelativeLayout>
-            <!--
-                 <TextView
-                android:layout_width="match_parent"
-                android:layout_height="1dip"
-                android:layout_marginLeft="10dip"
-                android:layout_marginRight="10dip"
-                android:background="#E6E6E6" />
-            -->
+                        android:background="@drawable/set_button_go"
+                        android:visibility="visible" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dip"
-                android:background="#ffffff"
-                android:orientation="vertical" >
-                 
-                <Button
-                    android:id="@+id/btn_logout"
+                </RelativeLayout>
+                <RelativeLayout
+                    android:id="@+id/rl_switch_version"
                     android:layout_width="match_parent"
-                    android:layout_height="44dp"
-                    android:layout_marginBottom="12dp"
-                    android:layout_marginLeft="10dip"
-                    android:layout_marginRight="10dip"
-                    android:layout_marginTop="12dp"
-                    android:background="@drawable/btn_style_alert_dialog_special"
-                    android:text="@string/button_logout"
-                    android:textColor="@android:color/white"
-                    android:textSize="18sp" />
-            </LinearLayout>
+                    android:layout_height="50dip"
+                    android:background="@drawable/btn_bottom_selector"
+                    android:padding="10dip" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:paddingLeft="10dip"
+                        android:text="版本记录"
+                        android:textColor="@android:color/black"
+                        android:textSize="14sp"
+                        android:typeface="serif" />
+                    <TextView
+                        android:id="@+id/tvversion"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        />
+
+                    <ImageView
+                        android:id="@+id/iv_switch_open_version"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:background="@drawable/set_button_go"
+                        android:visibility="visible" />
+
+                </RelativeLayout>
+                <RelativeLayout
+                    android:id="@+id/rl_switch_queen"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dip"
+                    android:background="@drawable/btn_bottom_selector"
+                    android:padding="10dip" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:paddingLeft="10dip"
+                        android:text="有问题戳我"
+                        android:textColor="@android:color/black"
+                        android:textSize="14sp"
+                        android:typeface="serif" />
+                    <TextView
+                        android:id="@+id/tvqueen"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        />
+
+                    <ImageView
+                        android:id="@+id/iv_switch_open_queen"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:background="@drawable/set_button_go"
+                        android:visibility="visible" />
+
+                </RelativeLayout>
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:text="退出账户"
+                    android:textSize="30sp"
+                    />
+        </LinearLayout>
         </LinearLayout>
     </ScrollView>
 

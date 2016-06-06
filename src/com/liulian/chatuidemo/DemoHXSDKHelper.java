@@ -42,7 +42,6 @@ import com.easemob.chat.EMChatOptions;
 import com.easemob.chat.EMMessage;
 import com.easemob.chat.EMMessage.ChatType;
 import com.easemob.chat.EMMessage.Type;
-import com.easemob.chatuidemo.R;
 import com.liulian.chatuidemo.activity.ChatActivity;
 import com.liulian.chatuidemo.activity.MainActivity;
 import com.liulian.chatuidemo.activity.VideoCallActivity;

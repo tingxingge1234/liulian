@@ -53,6 +53,7 @@ import android.widget.Toast;
 
 import com.easemob.EMCallBack;
 import com.easemob.EMError;
+import com.liulian.chatuidemo.R;
 import com.liulian.chatuidemo.applib.controller.HXSDKHelper;
 import com.easemob.chat.EMChatManager;
 import com.easemob.chat.EMConversation;
@@ -69,7 +70,6 @@ import com.easemob.chat.VideoMessageBody;
 import com.easemob.chat.VoiceMessageBody;
 import com.liulian.chatuidemo.Constant;
 import com.liulian.chatuidemo.DemoHXSDKHelper;
-import com.easemob.chatuidemo.R;
 import com.liulian.chatuidemo.activity.AlertDialog;
 import com.liulian.chatuidemo.activity.BaiduMapActivity;
 import com.liulian.chatuidemo.activity.ChatActivity;

@@ -30,7 +30,7 @@ import android.widget.ProgressBar;
 
 import com.easemob.EMCallBack;
 import com.easemob.chat.EMChatManager;
-import com.easemob.chatuidemo.R;
+import com.liulian.chatuidemo.R;
 import com.liulian.chatuidemo.task.LoadLocalBigImgTask;
 import com.liulian.chatuidemo.utils.ImageCache;
 import com.liulian.chatuidemo.widget.photoview.PhotoView;

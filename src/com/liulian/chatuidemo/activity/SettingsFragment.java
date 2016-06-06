@@ -30,13 +30,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.easemob.EMCallBack;
+import com.liulian.chatuidemo.R;
 import com.liulian.chatuidemo.applib.controller.HXSDKHelper;
 import com.easemob.chat.EMChatManager;
 import com.easemob.chat.EMChatOptions;
 import com.liulian.chatuidemo.Constant;
 import com.liulian.chatuidemo.DemoHXSDKHelper;
 import com.liulian.chatuidemo.DemoHXSDKModel;
-import com.easemob.chatuidemo.R;
 
 /**
  * 设置界面

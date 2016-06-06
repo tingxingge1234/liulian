@@ -19,10 +19,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
 
+import com.liulian.chatuidemo.R;
 import com.liulian.chatuidemo.applib.controller.HXSDKHelper;
 import com.liulian.chatuidemo.Constant;
 import com.liulian.chatuidemo.DemoHXSDKHelper;
-import com.easemob.chatuidemo.R;
 import com.liulian.chatuidemo.adapter.NewFriendsMsgAdapter;
 import com.liulian.chatuidemo.db.InviteMessgeDao;
 import com.liulian.chatuidemo.domain.InviteMessage;

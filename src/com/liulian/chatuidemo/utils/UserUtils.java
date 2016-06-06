@@ -5,9 +5,9 @@ import android.text.TextUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.liulian.chatuidemo.R;
 import com.liulian.chatuidemo.applib.controller.HXSDKHelper;
 import com.liulian.chatuidemo.DemoHXSDKHelper;
-import com.easemob.chatuidemo.R;
 import com.liulian.chatuidemo.domain.User;
 import com.squareup.picasso.Picasso;
 

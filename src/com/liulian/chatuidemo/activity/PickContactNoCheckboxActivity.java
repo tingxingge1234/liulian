@@ -28,10 +28,10 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
+import com.liulian.chatuidemo.R;
 import com.liulian.chatuidemo.applib.controller.HXSDKHelper;
 import com.liulian.chatuidemo.Constant;
 import com.liulian.chatuidemo.DemoHXSDKHelper;
-import com.easemob.chatuidemo.R;
 import com.liulian.chatuidemo.adapter.ContactAdapter;
 import com.liulian.chatuidemo.domain.User;
 import com.liulian.chatuidemo.widget.Sidebar;

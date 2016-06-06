@@ -30,12 +30,12 @@ import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ListView;
 
+import com.liulian.chatuidemo.R;
 import com.liulian.chatuidemo.applib.controller.HXSDKHelper;
 import com.easemob.chat.EMGroup;
 import com.easemob.chat.EMGroupManager;
 import com.liulian.chatuidemo.Constant;
 import com.liulian.chatuidemo.DemoHXSDKHelper;
-import com.easemob.chatuidemo.R;
 import com.liulian.chatuidemo.adapter.ContactAdapter;
 import com.liulian.chatuidemo.domain.User;
 import com.liulian.chatuidemo.widget.Sidebar;

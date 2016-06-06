@@ -30,7 +30,7 @@ import android.widget.SectionIndexer;
 import android.widget.TextView;
 
 import com.liulian.chatuidemo.Constant;
-import com.easemob.chatuidemo.R;
+import com.liulian.chatuidemo.R;
 import com.liulian.chatuidemo.domain.User;
 import com.liulian.chatuidemo.utils.UserUtils;
 import com.easemob.util.EMLog;

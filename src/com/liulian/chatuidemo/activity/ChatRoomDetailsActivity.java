@@ -38,7 +38,7 @@ import android.widget.Toast;
 
 import com.easemob.chat.EMChatManager;
 import com.easemob.chat.EMChatRoom;
-import com.easemob.chatuidemo.R;
+import com.liulian.chatuidemo.R;
 import com.liulian.chatuidemo.utils.UserUtils;
 import com.liulian.chatuidemo.widget.ExpandGridView;
 import com.easemob.util.EMLog;

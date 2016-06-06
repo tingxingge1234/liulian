@@ -20,7 +20,7 @@ import android.os.AsyncTask;
 import android.view.View;
 import android.widget.ProgressBar;
 
-import com.easemob.chatuidemo.R;
+import com.liulian.chatuidemo.R;
 import com.liulian.chatuidemo.utils.ImageCache;
 import com.liulian.chatuidemo.widget.photoview.PhotoView;
 import com.easemob.util.ImageUtils;

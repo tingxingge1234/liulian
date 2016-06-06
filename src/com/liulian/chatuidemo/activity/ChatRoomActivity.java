@@ -29,7 +29,7 @@ import android.widget.ListView;
 
 import com.easemob.chat.EMChatManager;
 import com.easemob.chat.EMChatRoom;
-import com.easemob.chatuidemo.R;
+import com.liulian.chatuidemo.R;
 import com.liulian.chatuidemo.adapter.ChatRoomAdapter;
 
 public class ChatRoomActivity extends BaseActivity {

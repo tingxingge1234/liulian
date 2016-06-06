@@ -13,8 +13,8 @@ import android.widget.Toast;
 
 import com.easemob.EMCallBack;
 import com.easemob.chat.EMChat;
-import com.easemob.chatuidemo.R;
 import com.easemob.util.EMLog;
+import com.liulian.chatuidemo.R;
 
 /**
  * Copyright (C) 2013-2014 EaseMob Technologies. All rights reserved.

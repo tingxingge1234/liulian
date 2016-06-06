@@ -49,12 +49,12 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.liulian.chatuidemo.R;
 import com.liulian.chatuidemo.applib.controller.HXSDKHelper;
 import com.liulian.chatuidemo.applib.controller.HXSDKHelper.HXSyncListener;
 import com.easemob.chat.EMContactManager;
 import com.liulian.chatuidemo.Constant;
 import com.liulian.chatuidemo.DemoHXSDKHelper;
-import com.easemob.chatuidemo.R;
 import com.liulian.chatuidemo.adapter.ContactAdapter;
 import com.liulian.chatuidemo.db.InviteMessgeDao;
 import com.liulian.chatuidemo.db.UserDao;

@@ -19,7 +19,7 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import com.easemob.chat.EMMessage;
-import com.easemob.chatuidemo.R;
+import com.liulian.chatuidemo.R;
 
 public class ContextMenu extends BaseActivity {
 

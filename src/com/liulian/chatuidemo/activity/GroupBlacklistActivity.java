@@ -4,8 +4,8 @@ import java.util.Collections;
 import java.util.List;
 
 import com.easemob.chat.EMGroupManager;
-import com.easemob.chatuidemo.R;
 import com.easemob.exceptions.EaseMobException;
+import com.liulian.chatuidemo.R;
 
 import android.content.Context;
 import android.os.Bundle;

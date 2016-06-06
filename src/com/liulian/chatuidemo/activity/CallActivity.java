@@ -11,7 +11,7 @@ import com.easemob.chat.EMChatManager;
 import com.easemob.chat.EMMessage;
 import com.easemob.chat.TextMessageBody;
 import com.liulian.chatuidemo.Constant;
-import com.easemob.chatuidemo.R;
+import com.liulian.chatuidemo.R;
 
 public class CallActivity extends BaseActivity {
 
