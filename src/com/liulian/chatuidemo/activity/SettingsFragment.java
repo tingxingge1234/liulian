@@ -141,7 +141,7 @@ public class SettingsFragment extends Fragment implements OnClickListener {
 		rl_switch_sound = (RelativeLayout) getView().findViewById(R.id.rl_switch_sound);
 		rl_switch_vibrate = (RelativeLayout) getView().findViewById(R.id.rl_switch_vibrate);
 		rl_switch_speaker = (RelativeLayout) getView().findViewById(R.id.rl_switch_speaker);
-		rl_switch_chatroom_leave = (RelativeLayout) getView().findViewById(R.id.rl_switch_chatroom_owner_leave);
+//		rl_switch_chatroom_leave = (RelativeLayout) getView().findViewById(R.id.rl_switch_chatroom_owner_leave);
 
 		iv_switch_open_notification = (ImageView) getView().findViewById(R.id.iv_switch_open_notification);
 		iv_switch_close_notification = (ImageView) getView().findViewById(R.id.iv_switch_close_notification);
@@ -150,13 +150,13 @@ public class SettingsFragment extends Fragment implements OnClickListener {
 		iv_switch_open_vibrate = (ImageView) getView().findViewById(R.id.iv_switch_open_vibrate);
 		iv_switch_close_vibrate = (ImageView) getView().findViewById(R.id.iv_switch_close_vibrate);
 		iv_switch_open_speaker = (ImageView) getView().findViewById(R.id.iv_switch_open_speaker);
-		iv_switch_close_speaker = (ImageView) getView().findViewById(R.id.iv_switch_close_speaker);
+//		iv_switch_close_speaker = (ImageView) getView().findViewById(R.id.iv_switch_close_speaker);
+//
+//		iv_switch_room_owner_leave_allow = (ImageView) getView().findViewById(R.id.iv_switch_chatroom_owner_leave_allow);
+//		iv_switch_room_owner_leave_disallow = (ImageView) getView().findViewById(R.id.iv_switch_chatroom_owner_leave_not_allow);
 		
-		iv_switch_room_owner_leave_allow = (ImageView) getView().findViewById(R.id.iv_switch_chatroom_owner_leave_allow);
-		iv_switch_room_owner_leave_disallow = (ImageView) getView().findViewById(R.id.iv_switch_chatroom_owner_leave_not_allow);
 		
-		
-		logoutBtn = (Button) getView().findViewById(R.id.btn_logout);
+//		logoutBtn = (Button) getView().findViewById(R.id.btn_logout);
 		if(!TextUtils.isEmpty(EMChatManager.getInstance().getCurrentUser())){
 			logoutBtn.setText(getString(R.string.button_logout) + "(" + EMChatManager.getInstance().getCurrentUser() + ")");
 		}
@@ -164,10 +164,10 @@ public class SettingsFragment extends Fragment implements OnClickListener {
 		textview1 = (TextView) getView().findViewById(R.id.textview1);
 		textview2 = (TextView) getView().findViewById(R.id.textview2);
 		
-		blacklistContainer = (LinearLayout) getView().findViewById(R.id.ll_black_list);
-		userProfileContainer = (LinearLayout) getView().findViewById(R.id.ll_user_profile);
-		llDiagnose=(LinearLayout) getView().findViewById(R.id.ll_diagnose);
-		pushNick=(LinearLayout) getView().findViewById(R.id.ll_set_push_nick);
+//		blacklistContainer = (LinearLayout) getView().findViewById(R.id.ll_black_list);
+//		userProfileContainer = (LinearLayout) getView().findViewById(R.id.ll_user_profile);
+//		llDiagnose=(LinearLayout) getView().findViewById(R.id.ll_diagnose);
+//		pushNick=(LinearLayout) getView().findViewById(R.id.ll_set_push_nick);
 		
 		blacklistContainer.setOnClickListener(this);
 		userProfileContainer.setOnClickListener(this);
@@ -307,42 +307,42 @@ public class SettingsFragment extends Fragment implements OnClickListener {
 				HXSDKHelper.getInstance().getModel().setSettingMsgVibrate(true);
 			}
 			break;
-		case R.id.rl_switch_chatroom_owner_leave:
-		    if(this.iv_switch_room_owner_leave_allow.getVisibility() == View.VISIBLE){
-		        iv_switch_room_owner_leave_allow.setVisibility(View.INVISIBLE);
-                iv_switch_room_owner_leave_disallow.setVisibility(View.VISIBLE);
-                chatOptions.allowChatroomOwnerLeave(false);
-                EMChatManager.getInstance().setChatOptions(chatOptions);
-                model.allowChatroomOwnerLeave(false);
+//		case R.id.rl_switch_chatroom_owner_leave:
+//		    if(this.iv_switch_room_owner_leave_allow.getVisibility() == View.VISIBLE){
+//		        iv_switch_room_owner_leave_allow.setVisibility(View.INVISIBLE);
+//                iv_switch_room_owner_leave_disallow.setVisibility(View.VISIBLE);
+//                chatOptions.allowChatroomOwnerLeave(false);
+//                EMChatManager.getInstance().setChatOptions(chatOptions);
+//                model.allowChatroomOwnerLeave(false);
 
-		    }else{
+//		    }else{
 		        iv_switch_room_owner_leave_allow.setVisibility(View.VISIBLE);
                 iv_switch_room_owner_leave_disallow.setVisibility(View.INVISIBLE);
                 chatOptions.allowChatroomOwnerLeave(true);
                 EMChatManager.getInstance().setChatOptions(chatOptions);
                 model.allowChatroomOwnerLeave(true);
 		    }
-		    break;
-		case R.id.btn_logout: //退出登陆
+//		    break;
+//		case R.id.btn_logout: //退出登陆
 			logout();
-			break;
-		case R.id.ll_black_list:
+//			break;
+//		case R.id.ll_black_list:
 			startActivity(new Intent(getActivity(), BlacklistActivity.class));
-			break;
-		case R.id.ll_diagnose:
-			startActivity(new Intent(getActivity(), DiagnoseActivity.class));
-			break;
-		case R.id.ll_set_push_nick:
-			startActivity(new Intent(getActivity(), OfflinePushNickActivity.class));
-			break;
-		case R.id.ll_user_profile:
-			startActivity(new Intent(getActivity(), UserProfileActivity.class).putExtra("setting", true));
-			break;
-		default:
-			break;
-		}
-		
-	}
+//			break;
+////		case R.id.ll_diagnose:
+//			startActivity(new Intent(getActivity(), DiagnoseActivity.class));
+//			break;
+////		case R.id.ll_set_push_nick:
+//			startActivity(new Intent(getActivity(), OfflinePushNickActivity.class));
+//			break;
+////		case R.id.ll_user_profile:
+//			startActivity(new Intent(getActivity(), UserProfileActivity.class).putExtra("setting", true));
+//			break;
+//		default:
+//			break;
+//		}
+//
+//	}
 
 	void logout() {
 		final ProgressDialog pd = new ProgressDialog(getActivity());

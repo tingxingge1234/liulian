@@ -2,12 +2,42 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.liulian.chatuidemo.fragment.WodeFragment">
+    tools:context="com.liulian.chatuidemo.fragment.WodeFragment"
+    >
 
     <!-- TODO: Update blank fragment layout -->
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+    <ImageView
+        android:id="@+id/iv_wode_avatar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        />
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:id="@+id/tv_wode_user_nick"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/iv_wode_avatar"/>
+        <TextView
+            android:id="@+id/tv_wode_user_age"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/iv_wode_avatar"
+            android:layout_below="@id/tv_wode_user_nick"/>
+        <TextView
+            android:id="@+id/tv_wode_user_position"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/iv_wode_avatar"
+            android:layout_below="@id/tv_wode_user_age"/>
+        <EditText
+            android:id="@+id/et_qianming"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/iv_wode_avatar"
+            android:layout_below="@id/tv_wode_user_position"
+            android:hint="请点击输入签名"/>
+    </RelativeLayout>
 
 </FrameLayout>
