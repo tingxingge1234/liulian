@@ -14,18 +14,25 @@
 
 package com.liulian.chatuidemo.activity;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.liulian.chatuidemo.applib.controller.HXSDKHelper;
+import com.liulian.chatuidemo.data.RequestManager;
 import com.umeng.analytics.MobclickAgent;
 
 public class BaseActivity extends FragmentActivity {
+    Activity mActivity;
 
     @Override
     protected void onCreate(Bundle arg0) {
         super.onCreate(arg0);
+        mActivity = this;
     }
 
     @Override
@@ -53,5 +60,22 @@ public class BaseActivity extends FragmentActivity {
      */
     public void back(View view) {
         finish();
+    }
+    @Override
+    protected void onStop() {
+        super.onStop();
+        RequestManager.cancelAll(mActivity);
+    }
+
+    public void executeRequest(Request<?> request){
+        RequestManager.addRequest(request,mActivity);
+    }
+    public Response.ErrorListener errorListener(){
+        return new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+                System.out.print(volleyError.getMessage());
+            }
+        };
     }
 }

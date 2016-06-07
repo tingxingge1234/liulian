@@ -15,19 +15,19 @@ public class LoginRegisterActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login_register);
+        setContentView(R.layout.activity_loginregister);
         initView();
         listener();
     }
 
     private void listener() {
-        btnLogin.setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.login).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivityForResult(new Intent(LoginRegisterActivity.this,LoginActivity.class),0);
             }
         });
-        btnRegister.setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.register).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivityForResult(new Intent(LoginRegisterActivity.this,RegisterActivity.class),0);

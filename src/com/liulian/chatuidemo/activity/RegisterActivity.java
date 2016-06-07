@@ -22,7 +22,7 @@ import android.widget.Toast;
 
 import com.easemob.EMError;
 import com.easemob.chat.EMChatManager;
-import com.liulian.chatuidemo.DemoApplication;
+import com.liulian.chatuidemo.LiuLianApplication;
 import com.easemob.exceptions.EaseMobException;
 import com.liulian.chatuidemo.R;
 
@@ -85,7 +85,7 @@ public class RegisterActivity extends BaseActivity {
 								if (!RegisterActivity.this.isFinishing())
 									pd.dismiss();
 								// 保存用户名
-								DemoApplication.getInstance().setUserName(username);
+								LiuLianApplication.getInstance().setUserName(username);
 								Toast.makeText(getApplicationContext(), getResources().getString(R.string.Registered_successfully), Toast.LENGTH_SHORT).show();
 								finish();
 							}

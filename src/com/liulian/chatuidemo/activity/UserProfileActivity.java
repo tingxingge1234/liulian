@@ -16,6 +16,7 @@ import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -36,14 +37,16 @@ public class UserProfileActivity extends BaseActivity implements OnClickListener
 	private static final int REQUESTCODE_PICK = 1;
 	private static final int REQUESTCODE_CUTTING = 2;
 	private ImageView headAvatar;
-	private ImageView headPhotoUpdate;
-	private ImageView iconRightArrow;
-	private TextView tvNickName;
-	private TextView tvUsername;
-	private ProgressDialog dialog;
-	private RelativeLayout rlNickName;
-	
-	
+	ImageView headPhotoUpdate;
+	ImageView iconRightArrow;
+	TextView tvNickName;
+	TextView tvUsername;
+	ProgressDialog dialog;
+	RelativeLayout rlNickName;
+	ImageView iv_back;
+	EditText et_name,et_birthday;
+	ImageView iv_submit;
+	Button btn_random_name;
 	
 	@Override
 	protected void onCreate(Bundle arg0) {
@@ -55,11 +58,11 @@ public class UserProfileActivity extends BaseActivity implements OnClickListener
 	
 	private void initView() {
 		headAvatar = (ImageView) findViewById(R.id.user_head_avatar);
-		headPhotoUpdate = (ImageView) findViewById(R.id.user_head_headphoto_update);
-		tvUsername = (TextView) findViewById(R.id.user_username);
-		tvNickName = (TextView) findViewById(R.id.user_nickname);
-		rlNickName = (RelativeLayout) findViewById(R.id.rl_nickname);
-		iconRightArrow = (ImageView) findViewById(R.id.ic_right_arrow);
+		iv_back = (ImageView) findViewById(R.id.iv_back);
+		et_name = (EditText) findViewById(R.id.et_name);
+		et_birthday = (EditText) findViewById(R.id.et_birthday);
+		iv_submit = (ImageView) findViewById(R.id.iv_submit);
+		btn_random_name = (Button) findViewById(R.id.random_name);
 	}
 	
 	private void initListener() {
@@ -97,22 +100,22 @@ public class UserProfileActivity extends BaseActivity implements OnClickListener
 		case R.id.user_head_avatar:
 			uploadHeadPhoto();
 			break;
-		case R.id.rl_nickname:
-			final EditText editText = new EditText(this);
-			new AlertDialog.Builder(this).setTitle(R.string.setting_nickname).setIcon(android.R.drawable.ic_dialog_info).setView(editText)
-					.setPositiveButton(R.string.dl_ok, new DialogInterface.OnClickListener() {
-
-						@Override
-						public void onClick(DialogInterface dialog, int which) {
-							String nickString = editText.getText().toString();
-							if (TextUtils.isEmpty(nickString)) {
-								Toast.makeText(UserProfileActivity.this, getString(R.string.toast_nick_not_isnull), Toast.LENGTH_SHORT).show();
-								return;
-							}
-							updateRemoteNick(nickString);
-						}
-					}).setNegativeButton(R.string.dl_cancel, null).show();
-			break;
+//		case R.id.rl_nickname:
+//			final EditText editText = new EditText(this);
+//			new AlertDialog.Builder(this).setTitle(R.string.setting_nickname).setIcon(android.R.drawable.ic_dialog_info).setView(editText)
+//					.setPositiveButton(R.string.dl_ok, new DialogInterface.OnClickListener() {
+//
+//						@Override
+//						public void onClick(DialogInterface dialog, int which) {
+//							String nickString = editText.getText().toString();
+//							if (TextUtils.isEmpty(nickString)) {
+//								Toast.makeText(UserProfileActivity.this, getString(R.string.toast_nick_not_isnull), Toast.LENGTH_SHORT).show();
+//								return;
+//							}
+//							updateRemoteNick(nickString);
+//						}
+//					}).setNegativeButton(R.string.dl_cancel, null).show();
+//			break;
 		default:
 			break;
 		}

@@ -30,7 +30,7 @@ import android.widget.Toast;
 import com.liulian.chatuidemo.R;
 import com.liulian.chatuidemo.applib.controller.HXSDKHelper;
 import com.easemob.chat.EMContactManager;
-import com.liulian.chatuidemo.DemoApplication;
+import com.liulian.chatuidemo.LiuLianApplication;
 import com.liulian.chatuidemo.DemoHXSDKHelper;
 
 public class AddContactActivity extends BaseActivity{
@@ -92,7 +92,7 @@ public class AddContactActivity extends BaseActivity{
 	 * @param view
 	 */
 	public void addContact(View view){
-		if(DemoApplication.getInstance().getUserName().equals(nameText.getText().toString())){
+		if(LiuLianApplication.getInstance().getUserName().equals(nameText.getText().toString())){
 			String str = getString(R.string.not_add_myself);
 			startActivity(new Intent(this, AlertDialog.class).putExtra("msg", str));
 			return;

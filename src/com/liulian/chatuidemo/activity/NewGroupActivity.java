@@ -15,6 +15,7 @@ package com.liulian.chatuidemo.activity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -22,6 +23,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -30,7 +32,6 @@ import com.easemob.exceptions.EaseMobException;
 import com.liulian.chatuidemo.R;
 
 public class NewGroupActivity extends BaseActivity {
-	private EditText groupNameEditText;
 	private ProgressDialog progressDialog;
 	private EditText introductionEditText;
 	private CheckBox checkBox;
@@ -41,12 +42,8 @@ public class NewGroupActivity extends BaseActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_new_group);
-		groupNameEditText = (EditText) findViewById(R.id.edit_group_name);
 		introductionEditText = (EditText) findViewById(R.id.edit_group_introduction);
-		checkBox = (CheckBox) findViewById(R.id.cb_public);
-		memberCheckbox = (CheckBox) findViewById(R.id.cb_member_inviter);
-		openInviteContainer = (LinearLayout) findViewById(R.id.ll_open_invite);
-		
+
 		checkBox.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 			
 			@Override
@@ -65,15 +62,15 @@ public class NewGroupActivity extends BaseActivity {
 	 */
 	public void save(View v) {
 		String str6 = getResources().getString(R.string.Group_name_cannot_be_empty);
-		String name = groupNameEditText.getText().toString();
-		if (TextUtils.isEmpty(name)) {
-			Intent intent = new Intent(this, AlertDialog.class);
-			intent.putExtra("msg", str6);
-			startActivity(intent);
-		} else {
+//		String name = groupNameEditText.getText().toString();
+//		if (TextUtils.isEmpty(name)) {
+//			Intent intent = new Intent(this, AlertDialog.class);
+//			intent.putExtra("msg", str6);
+//			startActivity(intent);
+//		} else {
 			// 进通讯录选人
-			startActivityForResult(new Intent(this, GroupPickContactsActivity.class).putExtra("groupName", name), 0);
-		}
+//			startActivityForResult(new Intent(this, GroupPickContactsActivity.class).putExtra("groupName", name), 0);
+//		}
 	}
 	
 	@Override
@@ -92,17 +89,16 @@ public class NewGroupActivity extends BaseActivity {
 				@Override
 				public void run() {
 					// 调用sdk创建群组方法
-					String groupName = groupNameEditText.getText().toString().trim();
 					String desc = introductionEditText.getText().toString();
 					String[] members = data.getStringArrayExtra("newmembers");
-					try {
+//					try {
 						if(checkBox.isChecked()){
 							//创建公开群，此种方式创建的群，可以自由加入
 							//创建公开群，此种方式创建的群，用户需要申请，等群主同意后才能加入此群
-						    EMGroupManager.getInstance().createPublicGroup(groupName, desc, members, true,200);
+//						    EMGroupManager.getInstance().createPublicGroup(groupName, desc, members, true,200);
 						}else{
 							//创建不公开群
-						    EMGroupManager.getInstance().createPrivateGroup(groupName, desc, members, memberCheckbox.isChecked(),200);
+//						    EMGroupManager.getInstance().createPrivateGroup(groupName, desc, members, memberCheckbox.isChecked(),200);
 						}
 						runOnUiThread(new Runnable() {
 							public void run() {
@@ -111,16 +107,16 @@ public class NewGroupActivity extends BaseActivity {
 								finish();
 							}
 						});
-					} catch (final EaseMobException e) {
+//					} catch (final EaseMobException e) {
 						runOnUiThread(new Runnable() {
 							public void run() {
 								progressDialog.dismiss();
-								Toast.makeText(NewGroupActivity.this, st2 + e.getLocalizedMessage(), 1).show();
+//								Toast.makeText(NewGroupActivity.this, st2 + e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
 							}
 						});
 					}
 					
-				}
+//				}
 			}).start();
 		}
 	}

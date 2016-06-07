@@ -29,21 +29,24 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.android.volley.Response;
 import com.easemob.EMCallBack;
 import com.liulian.chatuidemo.R;
 import com.liulian.chatuidemo.applib.controller.HXSDKHelper;
 import com.easemob.chat.EMChatManager;
 import com.easemob.chat.EMGroupManager;
 import com.liulian.chatuidemo.Constant;
-import com.liulian.chatuidemo.DemoApplication;
+import com.liulian.chatuidemo.LiuLianApplication;
 import com.liulian.chatuidemo.DemoHXSDKHelper;
+import com.liulian.chatuidemo.bean.LoginUser;
+import com.liulian.chatuidemo.data.GsonRequest;
 import com.liulian.chatuidemo.db.UserDao;
 import com.liulian.chatuidemo.domain.User;
+import com.liulian.chatuidemo.LiuLian;
 import com.liulian.chatuidemo.utils.CommonUtils;
 
 /**
@@ -86,8 +89,8 @@ public class LoginActivity extends BaseActivity {
 
 
 		setListener();
-		if (DemoApplication.getInstance().getUserName() != null) {
-			usernameEditText.setText(DemoApplication.getInstance().getUserName());
+		if (LiuLianApplication.getInstance().getUserName() != null) {
+			usernameEditText.setText(LiuLianApplication.getInstance().getUserName());
 		}
 	}
 
@@ -129,10 +132,12 @@ public class LoginActivity extends BaseActivity {
 							if (!progressShow) {
 								return;
 							}
+							Log.e(TAG, "login currentUsername" + currentUsername);
+							Log.e(TAG, "login currentPassword" + currentPassword);
 							loginAppServer();
 							// 登陆成功，保存用户名密码
-							DemoApplication.getInstance().setUserName(currentUsername);
-							DemoApplication.getInstance().setPassword(currentPassword);
+							LiuLianApplication.getInstance().setUserName(currentUsername);
+							LiuLianApplication.getInstance().setPassword(currentPassword);
 
 							try {
 								// ** 第一次登录或者之前logout后再登录，加载所有本地群和回话
@@ -148,14 +153,14 @@ public class LoginActivity extends BaseActivity {
 									public void run() {
 										pd.dismiss();
 										DemoHXSDKHelper.getInstance().logout(true,null);
-										Toast.makeText(getApplicationContext(), R.string.login_failure_failed, 1).show();
+										Toast.makeText(getApplicationContext(), R.string.login_failure_failed, Toast.LENGTH_LONG).show();
 									}
 								});
 								return;
 							}
 							// 更新当前用户的nickname 此方法的作用是在ios离线推送时能够显示用户nick
 							boolean updatenick = EMChatManager.getInstance().updateCurrentUserNick(
-									DemoApplication.currentUserNick.trim());
+									LiuLianApplication.currentUserNick.trim());
 							if (!updatenick) {
 								Log.e("LoginActivity", "update current user nick fail");
 							}
@@ -194,7 +199,23 @@ public class LoginActivity extends BaseActivity {
 	}
 
 	private void loginAppServer() {
+		String path = "http://api.durian.haomee.cn/?pf=1&android_version=19&app_version=215&app_channel=%E8%85%BE%E8%AE%AF%E5%BA%94%E7%94%A8%E5%AE%9D&app_language=zh&m=User&a=phoneLogin&mobile=13552005525&password=5319bf4ef8f5029ec32a4ad62a3f8eff";
+		executeRequest(new GsonRequest<LoginUser>(path, LoginUser.class, responseListener(), errorListener()));
+	}
 
+	private Response.Listener<LoginUser> responseListener() {
+		return new Response.Listener<LoginUser>() {
+			@Override
+			public void onResponse(LoginUser loginUser) {
+				saveUser(loginUser);
+				Log.e(TAG, "login loginuser" + loginUser);
+			}
+		};
+	}
+
+	private void saveUser(LoginUser loginUser) {
+		LiuLian instance = LiuLian.getInstance();
+		instance.setLoginUser(loginUser);
 	}
 
 	private void setProgressShow() {

@@ -102,9 +102,9 @@ public class SettingsFragment extends Fragment implements OnClickListener {
 	private TextView textview1, textview2;
 
 	private LinearLayout blacklistContainer;
-	
+
 	private LinearLayout userProfileContainer;
-	
+
 	/**
 	 * 退出按钮
 	 */
@@ -113,9 +113,9 @@ public class SettingsFragment extends Fragment implements OnClickListener {
 	private RelativeLayout rl_switch_chatroom_leave;
 	private ImageView iv_switch_room_owner_leave_allow;
 	private ImageView iv_switch_room_owner_leave_disallow;
-	
+
 	private EMChatOptions chatOptions;
- 
+
 	/**
 	 * 诊断
 	 */
@@ -124,12 +124,18 @@ public class SettingsFragment extends Fragment implements OnClickListener {
 	 * iOS离线推送昵称
 	 */
 	private LinearLayout pushNick;
-	
+
 	DemoHXSDKModel model;
-	
+	/**
+	 * 返回上一界面
+	 */
+	ImageView iv_set_back;
+	View v;
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		return inflater.inflate(R.layout.fragment_conversation_settings, container, false);
+		v = inflater.inflate(R.layout.fragment_conversation_settings, container, false);
+		return v;
 	}
 
 	@Override
@@ -154,21 +160,21 @@ public class SettingsFragment extends Fragment implements OnClickListener {
 //
 //		iv_switch_room_owner_leave_allow = (ImageView) getView().findViewById(R.id.iv_switch_chatroom_owner_leave_allow);
 //		iv_switch_room_owner_leave_disallow = (ImageView) getView().findViewById(R.id.iv_switch_chatroom_owner_leave_not_allow);
-		
-		
-//		logoutBtn = (Button) getView().findViewById(R.id.btn_logout);
+
+
+		logoutBtn = (Button) getView().findViewById(R.id.btn_logout);
 		if(!TextUtils.isEmpty(EMChatManager.getInstance().getCurrentUser())){
 			logoutBtn.setText(getString(R.string.button_logout) + "(" + EMChatManager.getInstance().getCurrentUser() + ")");
 		}
 
 		textview1 = (TextView) getView().findViewById(R.id.textview1);
 		textview2 = (TextView) getView().findViewById(R.id.textview2);
-		
+
 //		blacklistContainer = (LinearLayout) getView().findViewById(R.id.ll_black_list);
 //		userProfileContainer = (LinearLayout) getView().findViewById(R.id.ll_user_profile);
 //		llDiagnose=(LinearLayout) getView().findViewById(R.id.ll_diagnose);
 //		pushNick=(LinearLayout) getView().findViewById(R.id.ll_set_push_nick);
-		
+
 		blacklistContainer.setOnClickListener(this);
 		userProfileContainer.setOnClickListener(this);
 		rl_switch_notification.setOnClickListener(this);
@@ -179,11 +185,12 @@ public class SettingsFragment extends Fragment implements OnClickListener {
 		llDiagnose.setOnClickListener(this);
 		pushNick.setOnClickListener(this);
 		rl_switch_chatroom_leave.setOnClickListener(this);
-		
+
 		chatOptions = EMChatManager.getInstance().getChatOptions();
-		
+
 		model = (DemoHXSDKModel) HXSDKHelper.getInstance().getModel();
-		
+		iv_set_back = (ImageView) v.findViewById(R.id.iv_set_back);
+
 		// 震动和声音总开关，来消息时，是否允许此开关打开
 		// the vibrate and sound notification are allowed or not?
 		if (model.getSettingMsgNotification()) {
@@ -193,7 +200,7 @@ public class SettingsFragment extends Fragment implements OnClickListener {
 			iv_switch_open_notification.setVisibility(View.INVISIBLE);
 			iv_switch_close_notification.setVisibility(View.VISIBLE);
 		}
-		
+
 		// 是否打开声音
 		// sound notification is switched on or not?
 		if (model.getSettingMsgSound()) {
@@ -203,7 +210,7 @@ public class SettingsFragment extends Fragment implements OnClickListener {
 			iv_switch_open_sound.setVisibility(View.INVISIBLE);
 			iv_switch_close_sound.setVisibility(View.VISIBLE);
 		}
-		
+
 		// 是否打开震动
 		// vibrate notification is switched on or not?
 		if (model.getSettingMsgVibrate()) {
@@ -234,7 +241,7 @@ public class SettingsFragment extends Fragment implements OnClickListener {
 		}
 	}
 
-	
+
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
@@ -314,35 +321,35 @@ public class SettingsFragment extends Fragment implements OnClickListener {
 //                chatOptions.allowChatroomOwnerLeave(false);
 //                EMChatManager.getInstance().setChatOptions(chatOptions);
 //                model.allowChatroomOwnerLeave(false);
-
+//
 //		    }else{
-		        iv_switch_room_owner_leave_allow.setVisibility(View.VISIBLE);
-                iv_switch_room_owner_leave_disallow.setVisibility(View.INVISIBLE);
-                chatOptions.allowChatroomOwnerLeave(true);
-                EMChatManager.getInstance().setChatOptions(chatOptions);
-                model.allowChatroomOwnerLeave(true);
-		    }
+//		        iv_switch_room_owner_leave_allow.setVisibility(View.VISIBLE);
+//                iv_switch_room_owner_leave_disallow.setVisibility(View.INVISIBLE);
+//                chatOptions.allowChatroomOwnerLeave(true);
+//                EMChatManager.getInstance().setChatOptions(chatOptions);
+//                model.allowChatroomOwnerLeave(true);
+//		    }
 //		    break;
-//		case R.id.btn_logout: //退出登陆
+		case R.id.btn_logout: //退出登陆
 			logout();
-//			break;
-//		case R.id.ll_black_list:
+			break;
+		case R.id.ll_black_list:
 			startActivity(new Intent(getActivity(), BlacklistActivity.class));
-//			break;
-////		case R.id.ll_diagnose:
+			break;
+//		case R.id.ll_diagnose:
 //			startActivity(new Intent(getActivity(), DiagnoseActivity.class));
 //			break;
-////		case R.id.ll_set_push_nick:
+//		case R.id.ll_set_push_nick:
 //			startActivity(new Intent(getActivity(), OfflinePushNickActivity.class));
 //			break;
-////		case R.id.ll_user_profile:
-//			startActivity(new Intent(getActivity(), UserProfileActivity.class).putExtra("setting", true));
-//			break;
-//		default:
-//			break;
-//		}
-//
-//	}
+		case R.id.set_personal:
+			startActivity(new Intent(getActivity(), UserProfileActivity.class).putExtra("setting", true));
+			break;
+		default:
+			break;
+		}
+
+	}
 
 	void logout() {
 		final ProgressDialog pd = new ProgressDialog(getActivity());
@@ -351,7 +358,7 @@ public class SettingsFragment extends Fragment implements OnClickListener {
 		pd.setCanceledOnTouchOutside(false);
 		pd.show();
 		DemoHXSDKHelper.getInstance().logout(true,new EMCallBack() {
-			
+
 			@Override
 			public void onSuccess() {
 				getActivity().runOnUiThread(new Runnable() {
@@ -360,34 +367,34 @@ public class SettingsFragment extends Fragment implements OnClickListener {
 						// 重新显示登陆页面
 						((MainActivity) getActivity()).finish();
 						startActivity(new Intent(getActivity(), LoginActivity.class));
-						
+
 					}
 				});
 			}
-			
+
 			@Override
 			public void onProgress(int progress, String status) {
-				
+
 			}
-			
+
 			@Override
 			public void onError(int code, String message) {
 				getActivity().runOnUiThread(new Runnable() {
-					
+
 					@Override
 					public void run() {
 						// TODO Auto-generated method stub
 						pd.dismiss();
 						Toast.makeText(getActivity(), "unbind devicetokens failed", Toast.LENGTH_SHORT).show();
-						
-						
+
+
 					}
 				});
 			}
 		});
 	}
 
-	
+
     @Override
     public void onSaveInstanceState(Bundle outState) {
     	super.onSaveInstanceState(outState);

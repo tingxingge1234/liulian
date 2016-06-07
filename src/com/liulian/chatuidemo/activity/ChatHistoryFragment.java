@@ -54,7 +54,7 @@ import com.easemob.chat.EMConversation;
 import com.easemob.chat.EMGroup;
 import com.easemob.chat.EMGroupManager;
 import com.easemob.chat.EMMessage;
-import com.liulian.chatuidemo.DemoApplication;
+import com.liulian.chatuidemo.LiuLianApplication;
 import com.liulian.chatuidemo.DemoHXSDKHelper;
 import com.liulian.chatuidemo.adapter.ChatHistoryAdapter;
 import com.liulian.chatuidemo.db.InviteMessgeDao;
@@ -98,7 +98,7 @@ public class ChatHistoryFragment extends Fragment {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				EMContact emContact = adapter.getItem(position);
-				if (adapter.getItem(position).getUsername().equals(DemoApplication.getInstance().getUserName()))
+				if (adapter.getItem(position).getUsername().equals(LiuLianApplication.getInstance().getUserName()))
 					Toast.makeText(getActivity(), st, 0).show();
 				else {
 					// 进入聊天页面
