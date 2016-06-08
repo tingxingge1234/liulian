@@ -45,6 +45,22 @@
                 android:layout_toLeftOf="@id/iv_message"
                 android:src="@drawable/discover_button_search"
                 android:visibility="gone"/>
+            <ImageView
+                android:id="@+id/iv_setting"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@id/iv_message"
+                android:src="@drawable/image_button_set"
+                android:visibility="gone"/>
+            <ImageView
+                android:id="@+id/iv_new_group"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/icon_discover_add"
+                android:layout_toLeftOf="@id/iv_search"
+                android:visibility="gone"
+                />
 
 
 
@@ -62,24 +78,28 @@
         >
 
        <ImageView
+           android:id="@+id/iv_tansuo"
            android:layout_weight="1"
            android:layout_width="wrap_content"
            android:layout_height="wrap_content"
            android:src="@drawable/discover_icon_area"
            />
         <ImageView
+            android:id="@+id/iv_test"
             android:layout_weight="1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/tabbar_button_2_pressed"
             />
         <ImageView
+            android:id="@+id/iv_find"
             android:layout_weight="1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/discover_default"
             />
         <ImageView
+            android:id="@+id/iv_wode"
             android:layout_weight="1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

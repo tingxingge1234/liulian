@@ -26,6 +26,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
 import android.util.Log;
@@ -34,6 +35,7 @@ import android.view.ContextMenu.ContextMenuInfo;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -63,26 +65,53 @@ import com.liulian.chatuidemo.db.InviteMessgeDao;
 import com.liulian.chatuidemo.db.UserDao;
 import com.liulian.chatuidemo.domain.InviteMessage;
 import com.liulian.chatuidemo.domain.InviteMessage.InviteMesageStatus;
-import com.liulian.chatuidemo.domain.User;
+import com.liulian.chatuidemo.domain.EMUser;
+import com.liulian.chatuidemo.fragment.MessageFragment;
+import com.liulian.chatuidemo.fragment.TansuoFragment;
+import com.liulian.chatuidemo.fragment.TestFragment;
+import com.liulian.chatuidemo.fragment.WodeFragment;
 import com.liulian.chatuidemo.utils.CommonUtils;
 import com.easemob.util.EMLog;
 import com.easemob.util.HanziToPinyin;
 import com.easemob.util.NetUtils;
 import com.umeng.analytics.MobclickAgent;
 
-public class MainActivity extends BaseActivity implements EMEventListener {
+public class MainActivity extends BaseActivity implements EMEventListener,View.OnClickListener{
 
 	protected static final String TAG = "MainActivity";
 	// 未读消息textview
-	private TextView unreadLabel;
+//	private TextView unreadLabel;
 	// 未读通讯录textview
-	private TextView unreadAddressLable;
+//	private TextView unreadAddressLable;
 
-	private Button[] mTabs;
-	private ContactlistFragment contactListFragment;
+//	private Button[] mTabs;
+//	private ContactlistFragment contactListFragment;
 	// private ChatHistoryFragment chatHistoryFragment;
-	private ChatAllHistoryFragment chatHistoryFragment;
+//	private ChatAllHistoryFragment chatHistoryFragment;
 	private SettingsFragment settingFragment;
+	/**
+	 * 4个fragment：WodeFragment、TestFragment、MessageFragment、TansuoFragment
+	 */
+	WodeFragment wodeFragment;
+	TestFragment testFragment;
+	MessageFragment messageFragment;
+	TansuoFragment tansuoFragment;
+
+	/**
+	 * fragment的textview名称
+	 */
+	TextView tv_main;
+	//探索、测试、公开群、我的imageview
+	ImageView iv_tansuo,iv_test,iv_find,iv_wode;
+	//聊天imageview
+	ImageView iv_message;
+	//搜索imageview
+	ImageView iv_search;
+	//创建群imageview
+	ImageView iv_new_group;
+	//设置imageview
+	ImageView iv_setting;
+
 	private Fragment[] fragments;
 	private int index;
 	// 当前fragment的index
@@ -122,6 +151,7 @@ public class MainActivity extends BaseActivity implements EMEventListener {
 		}
 		setContentView(R.layout.activity_main);
 		initView();
+		setListener();
 
 		// MobclickAgent.setDebugMode( true );
 		// --?--
@@ -134,22 +164,30 @@ public class MainActivity extends BaseActivity implements EMEventListener {
 		}
 
 		inviteMessgeDao = new InviteMessgeDao(this);
-		userDao = new UserDao(this);
+//		userDao = new UserDao(this);
 		// 这个fragment只显示好友和群组的聊天记录
 		// chatHistoryFragment = new ChatHistoryFragment();
 		// 显示所有人消息记录的fragment
-		chatHistoryFragment = new ChatAllHistoryFragment();
-		contactListFragment = new ContactlistFragment();
-		settingFragment = new SettingsFragment();
-		fragments = new Fragment[] { chatHistoryFragment, contactListFragment, settingFragment };
+//		chatHistoryFragment = new ChatAllHistoryFragment();
+//		contactListFragment = new ContactlistFragment();
+		//显示messageFragment
+
+//		fragments = new Fragment[] { chatHistoryFragment, contactListFragment, settingFragment };
 		// 添加显示第一个fragment
-		getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, chatHistoryFragment)
-				.add(R.id.fragment_container, contactListFragment).hide(contactListFragment).show(chatHistoryFragment)
-				.commit();
+//		getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, chatHistoryFragment)
+//				.add(R.id.fragment_container, contactListFragment).hide(contactListFragment).show(chatHistoryFragment)
+//				.commit();
 		
 		init();
 		//异步获取当前用户的昵称和头像
 		((DemoHXSDKHelper) HXSDKHelper.getInstance()).getUserProfileManager().asyncGetCurrentUserInfo();
+	}
+
+	private void setListener() {
+		iv_tansuo.setOnClickListener(this);
+		iv_test.setOnClickListener(this);
+		iv_find.setOnClickListener(this);
+		iv_wode.setOnClickListener(this);
 	}
 
 	private void init() {     
@@ -205,22 +243,22 @@ public class MainActivity extends BaseActivity implements EMEventListener {
                 
                 System.out.println("----------------"+usernames.toString());
                 EMLog.d("roster", "contacts size: " + usernames.size());
-                Map<String, User> userlist = new HashMap<String, User>();
+                Map<String, EMUser> userlist = new HashMap<String, EMUser>();
                 for (String username : usernames) {
-                    User user = new User();
+                    EMUser user = new EMUser();
                     user.setUsername(username);
                     setUserHearder(username, user);
                     userlist.put(username, user);
                 }
                 // 添加user"申请与通知"
-                User newFriends = new User();
+                EMUser newFriends = new EMUser();
                 newFriends.setUsername(Constant.NEW_FRIENDS_USERNAME);
                 String strChat = context.getString(R.string.Application_and_notify);
                 newFriends.setNick(strChat);
         
                 userlist.put(Constant.NEW_FRIENDS_USERNAME, newFriends);
                 // 添加"群聊"
-                User groupUser = new User();
+                EMUser groupUser = new EMUser();
                 String strGroup = context.getString(R.string.group_chat);
                 groupUser.setUsername(Constant.GROUP_USERNAME);
                 groupUser.setNick(strGroup);
@@ -228,7 +266,7 @@ public class MainActivity extends BaseActivity implements EMEventListener {
                 userlist.put(Constant.GROUP_USERNAME, groupUser);
                 
                  // 添加"聊天室"
-                User chatRoomItem = new User();
+                EMUser chatRoomItem = new EMUser();
                 String strChatRoom = context.getString(R.string.chat_room);
                 chatRoomItem.setUsername(Constant.CHAT_ROOM);
                 chatRoomItem.setNick(strChatRoom);
@@ -236,7 +274,7 @@ public class MainActivity extends BaseActivity implements EMEventListener {
                 userlist.put(Constant.CHAT_ROOM, chatRoomItem);
                 
                 // 添加"Robot"
-        		User robotUser = new User();
+        		EMUser robotUser = new EMUser();
         		String strRobot = context.getString(R.string.robot_chat);
         		robotUser.setUsername(Constant.CHAT_ROBOT);
         		robotUser.setNick(strRobot);
@@ -247,7 +285,7 @@ public class MainActivity extends BaseActivity implements EMEventListener {
                 ((DemoHXSDKHelper)HXSDKHelper.getInstance()).setContactList(userlist);
                  // 存入db
                 UserDao dao = new UserDao(context);
-                List<User> users = new ArrayList<User>(userlist.values());
+                List<EMUser> users = new ArrayList<EMUser>(userlist.values());
                 dao.saveContactList(users);
 
                 HXSDKHelper.getInstance().notifyContactsSyncListener(true);
@@ -256,10 +294,10 @@ public class MainActivity extends BaseActivity implements EMEventListener {
                     HXSDKHelper.getInstance().notifyForRecevingEvents();
                 }
                 
-                ((DemoHXSDKHelper)HXSDKHelper.getInstance()).getUserProfileManager().asyncFetchContactInfosFromServer(usernames,new EMValueCallBack<List<User>>() {
+                ((DemoHXSDKHelper)HXSDKHelper.getInstance()).getUserProfileManager().asyncFetchContactInfosFromServer(usernames,new EMValueCallBack<List<EMUser>>() {
 
 					@Override
-					public void onSuccess(List<User> uList) {
+					public void onSuccess(List<EMUser> uList) {
 						((DemoHXSDKHelper)HXSDKHelper.getInstance()).updateContactList(uList);
 						((DemoHXSDKHelper)HXSDKHelper.getInstance()).getUserProfileManager().notifyContactInfosSyncListener(true);
 					}
@@ -301,7 +339,7 @@ public class MainActivity extends BaseActivity implements EMEventListener {
      * @param username
      * @param user
      */
-    private static void setUserHearder(String username, User user) {
+    private static void setUserHearder(String username, EMUser user) {
         String headerName = null;
         if (!TextUtils.isEmpty(user.getNick())) {
             headerName = user.getNick();
@@ -326,16 +364,30 @@ public class MainActivity extends BaseActivity implements EMEventListener {
 	 * 初始化组件
 	 */
 	private void initView() {
-		unreadLabel = (TextView) findViewById(R.id.unread_msg_number);
+		messageFragment = new MessageFragment();
+		settingFragment = new SettingsFragment();
+		wodeFragment = new WodeFragment();
+		tansuoFragment = new TansuoFragment();
+		testFragment = new TestFragment();
+		tv_main = (TextView) findViewById(R.id.tv_main);
+		iv_find = (ImageView) findViewById(R.id.iv_find);
+		iv_message = (ImageView) findViewById(R.id.iv_message);
+		iv_new_group = (ImageView) findViewById(R.id.iv_new_group);
+		iv_search = (ImageView) findViewById(R.id.iv_search);
+		iv_setting = (ImageView) findViewById(R.id.iv_setting);
+		iv_tansuo = (ImageView) findViewById(R.id.iv_tansuo);
+		iv_wode = (ImageView) findViewById(R.id.iv_wode);
+		iv_test = (ImageView) findViewById(R.id.iv_test);
+//		unreadLabel = (TextView) findViewById(R.id.unread_msg_number);
 //		unreadAddressLable = (TextView) findViewById(R.id.unread_address_number);
-		mTabs = new Button[3];
+//		mTabs = new Button[3];
 //		mTabs[0] = (Button) findViewById(R.id.btn_conversation);
 //		mTabs[1] = (Button) findViewById(R.id.btn_address_list);
 //		mTabs[2] = (Button) findViewById(R.id.btn_setting);
 		// 把第一个tab设为选中状态
-		mTabs[0].setSelected(true);
+//		mTabs[0].setSelected(true);
 
-		registerForContextMenu(mTabs[1]);
+//		registerForContextMenu(mTabs[1]);
 	}
 
 	/**
@@ -363,9 +415,9 @@ public class MainActivity extends BaseActivity implements EMEventListener {
 			}
 			trx.show(fragments[index]).commit();
 		}
-		mTabs[currentTabIndex].setSelected(false);
+//		mTabs[currentTabIndex].setSelected(false);
 		// 把当前tab设为选中状态
-		mTabs[index].setSelected(true);
+//		mTabs[index].setSelected(true);
 		currentTabIndex = index;
 	}
 
@@ -405,12 +457,12 @@ public class MainActivity extends BaseActivity implements EMEventListener {
 		runOnUiThread(new Runnable() {
 			public void run() {
 				// 刷新bottom bar消息未读数
-				updateUnreadLabel();
+//				updateUnreadLabel();
 				if (currentTabIndex == 0) {
 					// 当前页面如果为聊天历史页面，刷新此页面
-					if (chatHistoryFragment != null) {
-						chatHistoryFragment.refresh();
-					}
+//					if (chatHistoryFragment != null) {
+//						chatHistoryFragment.refresh();
+//					}
 				}
 			}
 		});
@@ -447,33 +499,33 @@ public class MainActivity extends BaseActivity implements EMEventListener {
 	/**
 	 * 刷新未读消息数
 	 */
-	public void updateUnreadLabel() {
-		int count = getUnreadMsgCountTotal();
-		if (count > 0) {
-			unreadLabel.setText(String.valueOf(count));
-			unreadLabel.setVisibility(View.VISIBLE);
-		} else {
-			unreadLabel.setVisibility(View.INVISIBLE);
-		}
-	}
+//	public void updateUnreadLabel() {
+//		int count = getUnreadMsgCountTotal();
+//		if (count > 0) {
+//			unreadLabel.setText(String.valueOf(count));
+//			unreadLabel.setVisibility(View.VISIBLE);
+//		} else {
+//			unreadLabel.setVisibility(View.INVISIBLE);
+//		}
+//	}
 
 	/**
 	 * 刷新申请与通知消息数
 	 */
-	public void updateUnreadAddressLable() {
-		runOnUiThread(new Runnable() {
-			public void run() {
-				int count = getUnreadAddressCountTotal();
-				if (count > 0) {
+//	public void updateUnreadAddressLable() {
+//		runOnUiThread(new Runnable() {
+//			public void run() {
+//				int count = getUnreadAddressCountTotal();
+//				if (count > 0) {
 //					unreadAddressLable.setText(String.valueOf(count));
-					unreadAddressLable.setVisibility(View.VISIBLE);
-				} else {
-					unreadAddressLable.setVisibility(View.INVISIBLE);
-				}
-			}
-		});
-
-	}
+//					unreadAddressLable.setVisibility(View.VISIBLE);
+//				} else {
+//					unreadAddressLable.setVisibility(View.INVISIBLE);
+//				}
+//			}
+//		});
+//
+//	}
 
 	/**
 	 * 获取未读申请与通知消息
@@ -507,6 +559,26 @@ public class MainActivity extends BaseActivity implements EMEventListener {
 	private InviteMessgeDao inviteMessgeDao;
 	private UserDao userDao;
 
+	@Override
+	public void onClick(View v) {
+		FragmentManager manager = getSupportFragmentManager();
+		FragmentTransaction ft = manager.beginTransaction();
+		switch (v.getId()) {
+			case R.id.iv_tansuo:
+				ft.replace(R.id.fragment_container,tansuoFragment).commit();
+				break;
+			case R.id.iv_test:
+				ft.replace(R.id.fragment_container,testFragment).commit();
+				break;
+			case R.id.iv_find:
+				ft.replace(R.id.fragment_container,messageFragment).commit();
+				break;
+			case R.id.iv_wode:
+				ft.replace(R.id.fragment_container,wodeFragment).commit();
+				break;
+		}
+	}
+
 	/***
 	 * 好友变化listener
 	 * 
@@ -516,10 +588,10 @@ public class MainActivity extends BaseActivity implements EMEventListener {
 		@Override
 		public void onContactAdded(List<String> usernameList) {			
 			// 保存增加的联系人
-			Map<String, User> localUsers = ((DemoHXSDKHelper)HXSDKHelper.getInstance()).getContactList();
-			Map<String, User> toAddUsers = new HashMap<String, User>();
+			Map<String, EMUser> localUsers = ((DemoHXSDKHelper)HXSDKHelper.getInstance()).getContactList();
+			Map<String, EMUser> toAddUsers = new HashMap<String, EMUser>();
 			for (String username : usernameList) {
-				User user = setUserHead(username);
+				EMUser user = setUserHead(username);
 				// 添加好友时可能会回调added方法两次
 				if (!localUsers.containsKey(username)) {
 					userDao.saveContact(user);
@@ -528,15 +600,15 @@ public class MainActivity extends BaseActivity implements EMEventListener {
 			}
 			localUsers.putAll(toAddUsers);
 			// 刷新ui
-			if (currentTabIndex == 1)
-				contactListFragment.refresh();
+//			if (currentTabIndex == 1)
+//				contactListFragment.refresh();
 
 		}
 
 		@Override
 		public void onContactDeleted(final List<String> usernameList) {
 			// 被删除
-			Map<String, User> localUsers = ((DemoHXSDKHelper)HXSDKHelper.getInstance()).getContactList();
+			Map<String, EMUser> localUsers = ((DemoHXSDKHelper)HXSDKHelper.getInstance()).getContactList();
 			for (String username : usernameList) {
 				localUsers.remove(username);
 				userDao.deleteContact(username);
@@ -548,14 +620,14 @@ public class MainActivity extends BaseActivity implements EMEventListener {
 					String st10 = getResources().getString(R.string.have_you_removed);
 					if (ChatActivity.activityInstance != null
 							&& usernameList.contains(ChatActivity.activityInstance.getToChatUsername())) {
-						Toast.makeText(MainActivity.this, ChatActivity.activityInstance.getToChatUsername() + st10, 1)
+						Toast.makeText(MainActivity.this, ChatActivity.activityInstance.getToChatUsername() + st10, Toast.LENGTH_LONG)
 								.show();
 						ChatActivity.activityInstance.finish();
 					}
-					updateUnreadLabel();
+//					updateUnreadLabel();
 					// 刷新ui
-					contactListFragment.refresh();
-					chatHistoryFragment.refresh();
+//					contactListFragment.refresh();
+//					chatHistoryFragment.refresh();
 				}
 			});
 
@@ -648,7 +720,7 @@ public class MainActivity extends BaseActivity implements EMEventListener {
 
 				@Override
 				public void run() {
-					chatHistoryFragment.errorItem.setVisibility(View.GONE);
+//					chatHistoryFragment.errorItem.setVisibility(View.GONE);
 				}
 
 			});
@@ -669,11 +741,11 @@ public class MainActivity extends BaseActivity implements EMEventListener {
 						// 显示帐号在其他设备登陆dialog
 						showConflictDialog();
 					} else {
-						chatHistoryFragment.errorItem.setVisibility(View.VISIBLE);
-						if (NetUtils.hasNetwork(MainActivity.this))
-							chatHistoryFragment.errorText.setText(st1);
-						else
-							chatHistoryFragment.errorText.setText(st2);
+//						chatHistoryFragment.errorItem.setVisibility(View.VISIBLE);
+//						if (NetUtils.hasNetwork(MainActivity.this))
+//							chatHistoryFragment.errorText.setText(st1);
+//						else
+//							chatHistoryFragment.errorText.setText(st2);
 
 					}
 				}
@@ -715,10 +787,10 @@ public class MainActivity extends BaseActivity implements EMEventListener {
 
 			runOnUiThread(new Runnable() {
 				public void run() {
-					updateUnreadLabel();
+//					updateUnreadLabel();
 					// 刷新ui
 					if (currentTabIndex == 0)
-						chatHistoryFragment.refresh();
+//						chatHistoryFragment.refresh();
 					if (CommonUtils.getTopActivity(MainActivity.this).equals(GroupsActivity.class.getName())) {
 						GroupsActivity.instance.onResume();
 					}
@@ -745,9 +817,9 @@ public class MainActivity extends BaseActivity implements EMEventListener {
 			runOnUiThread(new Runnable() {
 				public void run() {
 					try {
-						updateUnreadLabel();
+//						updateUnreadLabel();
 						if (currentTabIndex == 0)
-							chatHistoryFragment.refresh();
+//							chatHistoryFragment.refresh();
 						if (CommonUtils.getTopActivity(MainActivity.this).equals(GroupsActivity.class.getName())) {
 							GroupsActivity.instance.onResume();
 						}
@@ -766,9 +838,9 @@ public class MainActivity extends BaseActivity implements EMEventListener {
 			// 刷新ui
 			runOnUiThread(new Runnable() {
 				public void run() {
-					updateUnreadLabel();
+//					updateUnreadLabel();
 					if (currentTabIndex == 0)
-						chatHistoryFragment.refresh();
+//						chatHistoryFragment.refresh();
 					if (CommonUtils.getTopActivity(MainActivity.this).equals(GroupsActivity.class.getName())) {
 						GroupsActivity.instance.onResume();
 					}
@@ -810,10 +882,10 @@ public class MainActivity extends BaseActivity implements EMEventListener {
 
 			runOnUiThread(new Runnable() {
 				public void run() {
-					updateUnreadLabel();
+//					updateUnreadLabel();
 					// 刷新ui
 					if (currentTabIndex == 0)
-						chatHistoryFragment.refresh();
+//						chatHistoryFragment.refresh();
 					if (CommonUtils.getTopActivity(MainActivity.this).equals(GroupsActivity.class.getName())) {
 						GroupsActivity.instance.onResume();
 					}
@@ -838,10 +910,10 @@ public class MainActivity extends BaseActivity implements EMEventListener {
 		HXSDKHelper.getInstance().getNotifier().viberateAndPlayTone(null);
 
 		// 刷新bottom bar消息未读数
-		updateUnreadAddressLable();
+//		updateUnreadAddressLable();
 		// 刷新好友页面ui
-		if (currentTabIndex == 1)
-			contactListFragment.refresh();
+//		if (currentTabIndex == 1)
+//			contactListFragment.refresh();
 	}
 
 	/**
@@ -853,7 +925,7 @@ public class MainActivity extends BaseActivity implements EMEventListener {
 		// 保存msg
 		inviteMessgeDao.saveMessage(msg);
 		// 未读数加1
-		User user = ((DemoHXSDKHelper)HXSDKHelper.getInstance()).getContactList().get(Constant.NEW_FRIENDS_USERNAME);
+		EMUser user = ((DemoHXSDKHelper)HXSDKHelper.getInstance()).getContactList().get(Constant.NEW_FRIENDS_USERNAME);
 		if (user.getUnreadMsgCount() == 0)
 			user.setUnreadMsgCount(user.getUnreadMsgCount() + 1);
 	}
@@ -864,8 +936,8 @@ public class MainActivity extends BaseActivity implements EMEventListener {
 	 * @param username
 	 * @return
 	 */
-	User setUserHead(String username) {
-		User user = new User();
+	EMUser setUserHead(String username) {
+		EMUser user = new EMUser();
 		user.setUsername(username);
 		String headerName = null;
 		if (!TextUtils.isEmpty(user.getNick())) {
@@ -892,8 +964,8 @@ public class MainActivity extends BaseActivity implements EMEventListener {
 	protected void onResume() {
 		super.onResume();
 		if (!isConflict && !isCurrentAccountRemoved) {
-			updateUnreadLabel();
-			updateUnreadAddressLable();
+//			updateUnreadLabel();
+//			updateUnreadAddressLable();
 			EMChatManager.getInstance().activityResumed();
 		}
 

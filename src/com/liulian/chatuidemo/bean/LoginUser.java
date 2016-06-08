@@ -1,13 +1,20 @@
 package com.liulian.chatuidemo.bean;
 
+import java.io.Serializable;
+
 /**
  * Created by Administrator on 2016/6/7 0007.
  */
-public class LoginUser {
+public class LoginUser extends Location  {
     String falg;
     String msg;
     User user;
     String is_new;
+
+    public LoginUser(boolean result, String msg) {
+        this.setResult(result);
+        this.setMsg(msg);
+    }
 
     @Override
     public String toString() {

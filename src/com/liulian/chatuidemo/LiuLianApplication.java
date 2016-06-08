@@ -17,6 +17,13 @@ import android.app.Application;
 import android.content.Context;
 
 import com.easemob.EMCallBack;
+import com.liulian.chatuidemo.bean.Contact;
+import com.liulian.chatuidemo.bean.Group;
+import com.liulian.chatuidemo.bean.User;
+import com.liulian.chatuidemo.data.RequestManager;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class LiuLianApplication extends Application {
 
@@ -36,7 +43,7 @@ public class LiuLianApplication extends Application {
 		super.onCreate();
         applicationContext = this;
         instance = this;
-
+		RequestManager.init(applicationContext);
         /**
          * this function will initialize the HuanXin SDK
          * 
@@ -106,5 +113,50 @@ public class LiuLianApplication extends Application {
 	public void logout(final boolean isGCM,final EMCallBack emCallBack) {
 		// 先调用sdk logout，在清理app中自己的数据
 	    hxSDKHelper.logout(isGCM,emCallBack);
+	}
+	private User user;
+	private ArrayList<Contact> contactList = new ArrayList<Contact>();
+	private HashMap<String, Contact> userList = new HashMap<String,Contact>();
+	private ArrayList<Group> groupList = new ArrayList<Group>();
+	private ArrayList<Group> publicGroupList = new ArrayList<Group>();
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public ArrayList<Contact> getContactList() {
+		return contactList;
+	}
+
+	public void setContactList(ArrayList<Contact> contactList) {
+		this.contactList = contactList;
+	}
+
+	public HashMap<String, Contact> getUserList() {
+		return userList;
+	}
+
+	public void setUserList(HashMap<String, Contact> userList) {
+		this.userList = userList;
+	}
+
+	public ArrayList<Group> getPublicGroupList() {
+		return publicGroupList;
+	}
+
+	public void setPublicGroupList(ArrayList<Group> publicGroupList) {
+		this.publicGroupList = publicGroupList;
+	}
+
+	public ArrayList<Group> getGroupList() {
+		return groupList;
+	}
+
+	public void setGroupList(ArrayList<Group> groupList) {
+		this.groupList = groupList;
 	}
 }

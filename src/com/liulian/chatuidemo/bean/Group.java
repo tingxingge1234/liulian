@@ -62,7 +62,7 @@ public class Group extends Location implements java.io.Serializable {
 		this.mgroupMaxUsers = MGroupMaxUsers;
 	}
 
-	public Group(boolean result, int msg) {
+	public Group(boolean result, String msg) {
 		this.setResult(result);
 		this.setMsg(msg);
 	}

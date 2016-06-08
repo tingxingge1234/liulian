@@ -192,7 +192,7 @@ public class ChatAllHistoryFragment extends Fragment implements View.OnClickList
 		adapter.notifyDataSetChanged();
 
 		// 更新消息未读数
-		((MainActivity) getActivity()).updateUnreadLabel();
+//		((MainActivity) getActivity()).updateUnreadLabel();
 		
 		return handled ? true : super.onContextItemSelected(item);
 	}
@@ -210,7 +210,6 @@ public class ChatAllHistoryFragment extends Fragment implements View.OnClickList
 	/**
 	 * 获取所有会话
 	 * 
-	 * @param context
 	 * @return
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         +	 */
 	private List<EMConversation> loadConversationsWithRecentChat() {

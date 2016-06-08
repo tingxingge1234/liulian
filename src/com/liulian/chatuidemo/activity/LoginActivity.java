@@ -45,7 +45,7 @@ import com.liulian.chatuidemo.DemoHXSDKHelper;
 import com.liulian.chatuidemo.bean.LoginUser;
 import com.liulian.chatuidemo.data.GsonRequest;
 import com.liulian.chatuidemo.db.UserDao;
-import com.liulian.chatuidemo.domain.User;
+import com.liulian.chatuidemo.domain.EMUser;
 import com.liulian.chatuidemo.LiuLian;
 import com.liulian.chatuidemo.utils.CommonUtils;
 
@@ -261,9 +261,9 @@ public class LoginActivity extends BaseActivity {
 
 
 	private void initializeContacts() {
-		Map<String, User> userlist = new HashMap<String, User>();
+		Map<String, EMUser> userlist = new HashMap<String, EMUser>();
 		// 添加user"申请与通知"
-		User newFriends = new User();
+		EMUser newFriends = new EMUser();
 		newFriends.setUsername(Constant.NEW_FRIENDS_USERNAME);
 		String strChat = getResources().getString(
 				R.string.Application_and_notify);
@@ -271,7 +271,7 @@ public class LoginActivity extends BaseActivity {
 
 		userlist.put(Constant.NEW_FRIENDS_USERNAME, newFriends);
 		// 添加"群聊"
-		User groupUser = new User();
+		EMUser groupUser = new EMUser();
 		String strGroup = getResources().getString(R.string.group_chat);
 		groupUser.setUsername(Constant.GROUP_USERNAME);
 		groupUser.setNick(strGroup);
@@ -279,7 +279,7 @@ public class LoginActivity extends BaseActivity {
 		userlist.put(Constant.GROUP_USERNAME, groupUser);
 		
 		// 添加"Robot"
-		User robotUser = new User();
+		EMUser robotUser = new EMUser();
 		String strRobot = getResources().getString(R.string.robot_chat);
 		robotUser.setUsername(Constant.CHAT_ROBOT);
 		robotUser.setNick(strRobot);
@@ -290,7 +290,7 @@ public class LoginActivity extends BaseActivity {
 		((DemoHXSDKHelper) HXSDKHelper.getInstance()).setContactList(userlist);
 		// 存入db
 		UserDao dao = new UserDao(LoginActivity.this);
-		List<User> users = new ArrayList<User>(userlist.values());
+		List<EMUser> users = new ArrayList<EMUser>(userlist.values());
 		dao.saveContactList(users);
 	}
 	

@@ -28,7 +28,7 @@ import com.liulian.chatuidemo.R;
 import com.liulian.chatuidemo.applib.controller.HXSDKHelper;
 import com.easemob.chat.EMChatManager;
 import com.liulian.chatuidemo.DemoHXSDKHelper;
-import com.liulian.chatuidemo.domain.User;
+import com.liulian.chatuidemo.domain.EMUser;
 import com.liulian.chatuidemo.utils.UserUtils;
 import com.squareup.picasso.Picasso;
 
@@ -123,10 +123,10 @@ public class UserProfileActivity extends BaseActivity implements OnClickListener
 	}
 	
 	public void asyncFetchUserInfo(String username){
-		((DemoHXSDKHelper) HXSDKHelper.getInstance()).getUserProfileManager().asyncGetUserInfo(username, new EMValueCallBack<User>() {
+		((DemoHXSDKHelper) HXSDKHelper.getInstance()).getUserProfileManager().asyncGetUserInfo(username, new EMValueCallBack<EMUser>() {
 			
 			@Override
-			public void onSuccess(User user) {
+			public void onSuccess(EMUser user) {
 				if (user != null) {
 					tvNickName.setText(user.getNick());
 					if(!TextUtils.isEmpty(user.getAvatar())){

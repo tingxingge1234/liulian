@@ -20,7 +20,7 @@ import android.content.Context;
 
 
 import com.liulian.chatuidemo.domain.RobotUser;
-import com.liulian.chatuidemo.domain.User;
+import com.liulian.chatuidemo.domain.EMUser;
 
 public class UserDao {
 	public static final String TABLE_NAME = "uers";
@@ -47,7 +47,7 @@ public class UserDao {
 	 * 
 	 * @param contactList
 	 */
-	public void saveContactList(List<User> contactList) {
+	public void saveContactList(List<EMUser> contactList) {
 	    DemoDBManager.getInstance().saveContactList(contactList);
 	}
 
@@ -56,7 +56,7 @@ public class UserDao {
 	 * 
 	 * @return
 	 */
-	public Map<String, User> getContactList() {
+	public Map<String, EMUser> getContactList() {
 		
 	    return DemoDBManager.getInstance().getContactList();
 	}
@@ -73,7 +73,7 @@ public class UserDao {
 	 * 保存一个联系人
 	 * @param user
 	 */
-	public void saveContact(User user){
+	public void saveContact(EMUser user){
 	    DemoDBManager.getInstance().saveContact(user);
 	}
 	

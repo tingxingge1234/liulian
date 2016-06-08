@@ -3,13 +3,13 @@ package com.liulian.chatuidemo.bean;
 public class Message {
 
 	boolean result;
-	int msg;
+	String msg;
 
 	public Message() {
 		super();
 	}
 	
-	public Message(boolean result, int msg) {
+	public Message(boolean result, String msg) {
 		super();
 		this.result = result;
 		this.msg = msg;
@@ -23,11 +23,11 @@ public class Message {
 		this.result = result;
 	}
 	
-	public int getMsg() {
+	public String getMsg() {
 		return msg;
 	}
 	
-	public void setMsg(int msg) {
+	public void setMsg(String msg) {
 		this.msg = msg;
 	}
 	

@@ -58,7 +58,7 @@ import com.liulian.chatuidemo.LiuLianApplication;
 import com.liulian.chatuidemo.DemoHXSDKHelper;
 import com.liulian.chatuidemo.adapter.ChatHistoryAdapter;
 import com.liulian.chatuidemo.db.InviteMessgeDao;
-import com.liulian.chatuidemo.domain.User;
+import com.liulian.chatuidemo.domain.EMUser;
 
 /**
  * 聊天记录Fragment
@@ -68,7 +68,7 @@ public class ChatHistoryFragment extends Fragment {
 
 	private InputMethodManager inputMethodManager;
 	private ListView listView;
-	private Map<String, User> contactList;
+	private Map<String, EMUser> contactList;
 	private ChatHistoryAdapter adapter;
 	private EditText query;
 	private ImageButton clearSearch;
@@ -185,7 +185,7 @@ public class ChatHistoryFragment extends Fragment {
 			adapter.notifyDataSetChanged();
 
 			// 更新消息未读数
-			((MainActivity) getActivity()).updateUnreadLabel();
+//			((MainActivity) getActivity()).updateUnreadLabel();
 
 			return true;
 		}
@@ -212,7 +212,7 @@ public class ChatHistoryFragment extends Fragment {
 	private List<EMContact> loadUsersWithRecentChat() {
 		List<EMContact> resultList = new ArrayList<EMContact>();
 		//获取有聊天记录的users，不包括陌生人
-		for (User user : contactList.values()) {
+		for (EMUser user : contactList.values()) {
 			EMConversation conversation = EMChatManager.getInstance().getConversation(user.getUsername());
 			if (conversation.getMsgCount() > 0) {
 				resultList.add(user);

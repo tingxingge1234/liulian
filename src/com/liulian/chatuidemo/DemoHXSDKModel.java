@@ -22,7 +22,7 @@ import com.liulian.chatuidemo.applib.model.DefaultHXSDKModel;
 import com.liulian.chatuidemo.db.DemoDBManager;
 import com.liulian.chatuidemo.db.UserDao;
 import com.liulian.chatuidemo.domain.RobotUser;
-import com.liulian.chatuidemo.domain.User;
+import com.liulian.chatuidemo.domain.EMUser;
 
 public class DemoHXSDKModel extends DefaultHXSDKModel {
 
@@ -39,18 +39,18 @@ public class DemoHXSDKModel extends DefaultHXSDKModel {
         return true;
     }
     
-    public boolean saveContactList(List<User> contactList) {
+    public boolean saveContactList(List<EMUser> contactList) {
         UserDao dao = new UserDao(context);
         dao.saveContactList(contactList);
         return true;
     }
 
-    public Map<String, User> getContactList() {
+    public Map<String, EMUser> getContactList() {
         UserDao dao = new UserDao(context);
         return dao.getContactList();
     }
     
-    public void saveContact(User user){
+    public void saveContact(EMUser user){
     	UserDao dao = new UserDao(context);
     	dao.saveContact(user);
     }
