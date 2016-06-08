@@ -15,8 +15,11 @@ package com.liulian.chatuidemo.activity;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Intent;
+import android.nfc.Tag;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -24,11 +27,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Response;
 import com.easemob.EMError;
 import com.easemob.chat.EMChatManager;
 import com.liulian.chatuidemo.LiuLianApplication;
 import com.easemob.exceptions.EaseMobException;
 import com.liulian.chatuidemo.R;
+import com.liulian.chatuidemo.bean.Message;
+import com.liulian.chatuidemo.data.GsonRequest;
+import com.liulian.chatuidemo.utils.MD5;
 
 import cn.smssdk.EventHandler;
 import cn.smssdk.SMSSDK;
@@ -45,7 +52,9 @@ public class RegisterActivity extends BaseActivity {
 	TextView tv_submit;
 	Button btn_sms;
 	Activity mContext;
-
+	String phoneNumber;
+	String code;
+	String password;
 
 
 	@Override
@@ -72,7 +81,18 @@ public class RegisterActivity extends BaseActivity {
 	}
 
 	private void register() {
+		String path = "http://api.durian.haomee.cn/?pf=1&android_version=17&app_version=215&app_channel=%E5%AE%98%E7%BD%912.1.5&app_language=zh&m=User&a=phoneRegister&code="+code+"&mobile="+phoneNumber+"&password="+password;
+		executeRequest(new GsonRequest<Message>(path, Message.class,responseRegisterListener(),errorListener()));
+	}
 
+	private Response.Listener<Message> responseRegisterListener() {
+		return new Response.Listener<Message>() {
+			@Override
+			public void onResponse(Message message) {
+				Log.e("error", "register message" + message);
+				startActivity(new Intent(RegisterActivity.this,UserProfileActivity.class));
+			}
+		};
 	}
 
 
@@ -85,7 +105,9 @@ public class RegisterActivity extends BaseActivity {
 		tv_submit = (TextView) findViewById(R.id.tv_submit);
 		btn_sms = (Button) findViewById(R.id.btn_sms);
 		SMSSDK.initSDK(this, "13aabb2cc6d03", "5381e5b21e6e1fd4003fcd6efe38f9c8");
-
+		phoneNumber = mobileEditText.getText().toString();
+		code = etSms.getText().toString();
+		password = MD5.getData(passwordEditText.getText().toString());
 	}
 
 	/**
@@ -162,7 +184,7 @@ public class RegisterActivity extends BaseActivity {
 		SMSSDK.unregisterAllEventHandler();
 	}
 	private void sendMessage() {
-		String phoneNumber = mobileEditText.getText().toString();
+
 
 		SMSSDK.getVerificationCode("86",phoneNumber);
 		EventHandler eh=new EventHandler(){

@@ -37,7 +37,6 @@ public class UserProfileActivity extends BaseActivity implements OnClickListener
 	private static final int REQUESTCODE_PICK = 1;
 	private static final int REQUESTCODE_CUTTING = 2;
 	private ImageView headAvatar;
-	ImageView headPhotoUpdate;
 	ImageView iconRightArrow;
 	TextView tvNickName;
 	TextView tvUsername;
@@ -70,12 +69,10 @@ public class UserProfileActivity extends BaseActivity implements OnClickListener
 		String username = intent.getStringExtra("username");
 		boolean enableUpdate = intent.getBooleanExtra("setting", false);
 		if (enableUpdate) {
-			headPhotoUpdate.setVisibility(View.VISIBLE);
 			iconRightArrow.setVisibility(View.VISIBLE);
 			rlNickName.setOnClickListener(this);
 			headAvatar.setOnClickListener(this);
 		} else {
-			headPhotoUpdate.setVisibility(View.GONE);
 			iconRightArrow.setVisibility(View.INVISIBLE);
 		}
 		if (username == null) {

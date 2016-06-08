@@ -63,14 +63,14 @@
             android:orientation="horizontal">
 
             <RadioButton
-                android:id="@+id/rb_nan"
+                android:id="@+id/rb_sex_nan"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="#1266e4"
                 android:text="男"
                 />
             <RadioButton
-                android:id="@+id/rb_nv"
+                android:id="@+id/rb_sex_nv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="#f50a0a"
@@ -99,14 +99,14 @@
             android:orientation="horizontal">
 
             <RadioButton
-                android:id="@+id/rb_nan1"
+                android:id="@+id/rb_like_nan"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="#1266e4"
                 android:text="男"
                 />
             <RadioButton
-                android:id="@+id/rb_nv1"
+                android:id="@+id/rb_like_nv"
 
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
