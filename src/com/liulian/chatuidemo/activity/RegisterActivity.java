@@ -13,11 +13,15 @@
  */
 package com.liulian.chatuidemo.activity;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.easemob.EMError;
@@ -26,47 +30,79 @@ import com.liulian.chatuidemo.LiuLianApplication;
 import com.easemob.exceptions.EaseMobException;
 import com.liulian.chatuidemo.R;
 
+import cn.smssdk.EventHandler;
+import cn.smssdk.SMSSDK;
+
 /**
  * 注册页
- * 
+ *
  */
 public class RegisterActivity extends BaseActivity {
-	private EditText userNameEditText;
+	private EditText mobileEditText;
 	private EditText passwordEditText;
-	private EditText confirmPwdEditText;
+	EditText etSms;
+	ImageView iv_back;
+	TextView tv_submit;
+	Button btn_sms;
+	Activity mContext;
+
+
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_register);
-		userNameEditText = (EditText) findViewById(R.id.username);
+
+		initView();
+		setListener();
+	}
+
+	private void setListener() {
+		register();
+		setSMSListener();
+	}
+
+	private void setSMSListener() {
+		btn_sms.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				sendMessage();
+			}
+		});
+	}
+
+	private void register() {
+
+	}
+
+
+	private void initView() {
+		mContext = this;
+		mobileEditText = (EditText) findViewById(R.id.mobile);
 		passwordEditText = (EditText) findViewById(R.id.password);
-//		confirmPwdEditText = (EditText) findViewById(R.id.confirm_password);
+		etSms = (EditText) findViewById(R.id.code);
+		iv_back = (ImageView) findViewById(R.id.iv_back);
+		tv_submit = (TextView) findViewById(R.id.tv_submit);
+		btn_sms = (Button) findViewById(R.id.btn_sms);
+		SMSSDK.initSDK(this, "13aabb2cc6d03", "5381e5b21e6e1fd4003fcd6efe38f9c8");
+
 	}
 
 	/**
 	 * 注册
-	 * 
+	 *
 	 * @param view
 	 */
-	public void register(View view) {
-		final String username = userNameEditText.getText().toString().trim();
+	public void EMRegister(View view) {
+		final String username = mobileEditText.getText().toString().trim();
 		final String pwd = passwordEditText.getText().toString().trim();
-		String confirm_pwd = confirmPwdEditText.getText().toString().trim();
 		if (TextUtils.isEmpty(username)) {
 			Toast.makeText(this, getResources().getString(R.string.User_name_cannot_be_empty), Toast.LENGTH_SHORT).show();
-			userNameEditText.requestFocus();
+			mobileEditText.requestFocus();
 			return;
 		} else if (TextUtils.isEmpty(pwd)) {
 			Toast.makeText(this, getResources().getString(R.string.Password_cannot_be_empty), Toast.LENGTH_SHORT).show();
 			passwordEditText.requestFocus();
-			return;
-		} else if (TextUtils.isEmpty(confirm_pwd)) {
-			Toast.makeText(this, getResources().getString(R.string.Confirm_password_cannot_be_empty), Toast.LENGTH_SHORT).show();
-			confirmPwdEditText.requestFocus();
-			return;
-		} else if (!pwd.equals(confirm_pwd)) {
-			Toast.makeText(this, getResources().getString(R.string.Two_input_password), Toast.LENGTH_SHORT).show();
 			return;
 		}
 
@@ -119,5 +155,56 @@ public class RegisterActivity extends BaseActivity {
 	public void back(View view) {
 		finish();
 	}
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		//注销短信回调
+		SMSSDK.unregisterAllEventHandler();
+	}
+	private void sendMessage() {
+		String phoneNumber = mobileEditText.getText().toString();
+
+		SMSSDK.getVerificationCode("86",phoneNumber);
+		EventHandler eh=new EventHandler(){
+
+			@Override
+			public void afterEvent(int event, int result, final Object data) {
+
+				if (result == SMSSDK.RESULT_COMPLETE) {
+					//回调完成
+					if (event == SMSSDK.EVENT_SUBMIT_VERIFICATION_CODE) {
+
+						//提交验证码成功
+						runOnUiThread(new Runnable() {
+							@Override
+							public void run() {
+								Toast.makeText(mContext,"验证成功", Toast.LENGTH_SHORT).show();
+							}
+						});
+					}else if (event == SMSSDK.EVENT_GET_VERIFICATION_CODE){
+						//获取验证码成功
+						runOnUiThread(new Runnable() {
+							@Override
+							public void run() {
+								Toast.makeText(mContext,"发送成功", Toast.LENGTH_SHORT).show();
+							}
+						});
+					}else if (event ==SMSSDK.EVENT_GET_SUPPORTED_COUNTRIES){
+						//返回支持发送验证码的国家列表
+					}
+				}else{
+					runOnUiThread(new Runnable() {
+						@Override
+						public void run() {
+							Toast.makeText(mContext,((Throwable) data).getMessage(), Toast.LENGTH_SHORT).show();
+						}
+					});
+				}
+			}
+		};
+		SMSSDK.registerEventHandler(eh); //注册短信回调
+	}
+
+
 
 }

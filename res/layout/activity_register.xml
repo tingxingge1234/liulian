@@ -26,11 +26,11 @@
             android:textSize="25sp"
             />
         <TextView
-            android:id="@+id/tv_next"
+            android:id="@+id/tv_submit"
             android:layout_marginTop="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="下一步"
+            android:text="提交"
             android:textColor="#fa0808"
             android:layout_alignParentRight="true"
             android:textSize="25sp"
@@ -55,7 +55,7 @@
 
 
             <EditText
-                android:id="@+id/username"
+                android:id="@+id/mobile"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_centerVertical="true"
@@ -90,7 +90,40 @@
                 android:singleLine="true"
                 android:textSize="18sp" />
         </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/rl_code"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rl_password"
+            android:layout_marginLeft="28dp"
+            android:layout_marginRight="28dp"
+            android:layout_marginTop="10dp"
+            android:background="#fff" >
 
+
+            <EditText
+                android:id="@+id/code"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:background="@null"
+                android:hint="短信验证码："
+                android:inputType="textPassword"
+                android:paddingLeft="10dip"
+                android:singleLine="true"
+                android:textSize="18sp" />
+
+        </RelativeLayout>
+        <Button
+            android:id="@+id/btn_sms"
+            android:layout_below="@id/rl_code"
+            android:layout_centerInParent="true"
+            android:background="#f40c0c"
+            android:layout_marginLeft="90dp"
+            android:layout_marginTop="30dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="获取验证码"/>
 
     </RelativeLayout>
 
